@@ -15,5 +15,5 @@
  */
 
 export const isDev = function (): boolean {
-  return import.meta.env.DEV;
+  return import.meta.env.MODE === "development";
 };

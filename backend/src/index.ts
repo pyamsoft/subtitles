@@ -14,41 +14,27 @@
  * limitations under the License.
  */
 
-import fastify from "fastify";
+import { argv } from "node:process";
+import { description, name, version } from "../../package.json";
 import { Logger, newConsoleLogger } from "@shared";
+import { Command } from "commander";
+import { createExecCommand } from "./cli/exec";
+import { CliCommand } from "./cli/command";
 
-const FILE_NAME = "index.ts";
+const addToProgram = async function (program: Command, command: CliCommand) {
+  await command.addToProgram(program);
+};
 
-const main = async function (props: { logger: Logger; port?: number }) {
-  const { logger, port } = props;
-  const app = fastify();
+const main = async function (props: { logger: Logger }) {
+  const { logger } = props;
 
-  app.get("/", async (req, res) => {
-    const tagged = logger.tag(FILE_NAME, "/");
-    tagged.log(() => ({
-      message: ["Request", req],
-    }));
+  const program = new Command()
+    .name(name)
+    .description(description)
+    .version(version);
 
-    tagged.log(() => ({
-      message: ["Result", res],
-    }));
-
-    return {
-      message: "Hello, World!",
-    };
-  });
-
-  const tagged = logger.tag(FILE_NAME, "listen");
-  try {
-    await app.listen({
-      port,
-    });
-  } catch (e) {
-    tagged.error(() => ({
-      message: "Fastify error",
-      error: e,
-    }));
-  }
+  await addToProgram(program, await createExecCommand({ logger }));
+  program.parse(argv);
 };
 
 void (async () => {

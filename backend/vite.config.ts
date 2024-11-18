@@ -15,16 +15,35 @@
  */
 
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
 import { resolve } from "node:path";
 
 const root = resolve(__dirname, "..");
 
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      "@shared": resolve(root, "shared", "src"),
+export default defineConfig((env) => {
+  const isDev = env.mode !== "production";
+  return {
+    build: {
+      ssr: resolve(root, "backend", "src", "index.ts"),
+      outDir: "dist",
+      rollupOptions: {
+        input: resolve(root, "backend", "src", "index.ts"),
+        output: {
+          entryFileNames: (chunk) => {
+            if (chunk.name === "index") {
+              return "[name].js";
+            }
+
+            return "[name]-[hash].js";
+          },
+        },
+      },
+      minify: !isDev,
+      sourcemap: isDev,
     },
-  },
+    resolve: {
+      alias: {
+        "@shared": resolve(root, "shared", "src"),
+      },
+    },
+  };
 });
