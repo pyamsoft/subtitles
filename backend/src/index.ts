@@ -20,6 +20,13 @@ import { Logger, newConsoleLogger } from "@shared";
 import { Command } from "commander";
 import { createExecCommand } from "./cli/exec";
 import { CliCommand } from "./cli/command";
+import { OutputMetadata } from "./OutputMetadata";
+
+const DEFAULT_DOWNLOAD_DIRECTORY = `${name}-data`;
+const DEFAULT_METADATA: OutputMetadata = {
+  openSubtitlesRunnerVersion: 1,
+  alassRunnerVersion: 1,
+};
 
 const addToProgram = async function (program: Command, command: CliCommand) {
   await command.addToProgram(program);
@@ -33,7 +40,14 @@ const main = async function (props: { logger: Logger }) {
     .description(description)
     .version(version);
 
-  await addToProgram(program, await createExecCommand({ logger }));
+  await addToProgram(
+    program,
+    await createExecCommand({
+      logger,
+      metadata: DEFAULT_METADATA,
+      downloadDirectory: DEFAULT_DOWNLOAD_DIRECTORY,
+    }),
+  );
   program.parse(argv);
 };
 
