@@ -152,7 +152,7 @@ def on_post_processor_file_movement_make_from_dict(
 
 @dataclass
 class _Settings:
-    TEMPORARY_DOWNLOAD_DIRECTORY = ("Temporary Download Directory",)
+    TEMPORARY_DOWNLOAD_DIRECTORY = "Temporary Download Directory"
     OPENSUBTITLES_API_KEY = "OpenSubtitles API Key"
 
 
