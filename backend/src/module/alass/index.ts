@@ -1,1 +1,0 @@
-export { executeAlass } from "./alass";

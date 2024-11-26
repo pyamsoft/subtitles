@@ -1,15 +1,18 @@
 # Subs not ASS
 
-A frontend interface for alass and opensubtitles (and maybe other things).
+An Unmanic plugin that does the following
 
-Works only with SRT subtitles, not ASS subtitles
+For a given [MOVIE FILE]
+
+- If possible, download the SRT subtitles from OpenSubtitles
+- Use [alass](https://github.com/kaegi/alass) to re-align the subtitles if needed
 
 ## License
 
 Apache 2
 
 ```
-Copyright 2023 pyamsoft
+Copyright 2025 pyamsoft
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

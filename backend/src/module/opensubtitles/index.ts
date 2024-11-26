@@ -1,1 +1,0 @@
-export { executeOpenSubtitles } from "./opensubtitles";

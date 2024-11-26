@@ -1,6 +1,0 @@
-# shellcheck shell=bash
-
-# We are running from the root directory
-if [ -x corepack/pnpm ]; then
-  ./bin/do exec lint-staged
-fi
