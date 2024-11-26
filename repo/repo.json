@@ -15,6 +15,7 @@
             "description": "Uses ALASS and OpenSubtitles to clean up SRT files",
             "id": "subs_not_ass",
             "name": "Subs not ASS",
+            "icon": "",
             "platform": [
                 "linux",
                 "windows"
