@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from importlib.resources import files
 from typing import Dict, Any, List, Union, Callable, Optional
 
 from unmanic.libs.unplugins.settings import PluginSettings
@@ -76,7 +75,7 @@ class OnWorkerProcessData:
     library_id: str
 
     # Can be False to stop command execution
-    exec_command: Union[False, List[str]]
+    exec_command: Union[bool, List[str]]
 
     # TODO(Peter): What are the parameter types, what are the return types?
     command_progress_parser: Optional[Callable[[Any], None]]
