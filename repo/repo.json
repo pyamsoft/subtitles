@@ -1,0 +1,31 @@
+{
+    "repo": {
+        "id": "repository.pyamsoft",
+        "name": "pyamsoft Unmanic Plugins",
+        "icon": "",
+        "repo_data_directory": "https://raw.githubusercontent.com/pyamsoft/subtitles/repo/",
+        "repo_data_url": "https://raw.githubusercontent.com/pyamsoft/subtitles/repo/repo.json"
+    },
+    "plugins": [
+        {
+            "author": "pyamsoft",
+            "compatibility": [
+                2
+            ],
+            "description": "Uses ALASS and OpenSubtitles to clean up SRT files",
+            "id": "subs_not_ass",
+            "name": "Subs not ASS",
+            "icon": "",
+            "platform": [
+                "linux",
+                "windows"
+            ],
+            "tags": "subtitle",
+            "priorities": {
+                "on_library_management_file_test": 99,
+                "on_worker_process": 2
+            },
+            "version": "0.0.1"
+        }
+    ]
+}
