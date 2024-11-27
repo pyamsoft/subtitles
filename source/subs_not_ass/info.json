@@ -14,7 +14,8 @@
   "tags": "subtitle",
   "priorities": {
     "on_library_management_file_test": 99,
-    "on_worker_process": 2
+    "on_worker_process": 2,
+    "on_postprocessor_file_movement": 2
   },
-  "version": "0.0.2"
+  "version": "0.0.3"
 }
