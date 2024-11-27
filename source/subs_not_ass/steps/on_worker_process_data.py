@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 from dataclasses import dataclass
-from typing import List, Union, Optional, Dict, Any, Callable
+from traceback import print_exc
+from typing import List, Optional, Dict, Any, Callable
 
+from source.subs_not_ass.constants import LIBRARY_ID
+from source.subs_not_ass.settings import Settings
 
 #  Copyright 2024 pyamsoft
 #
@@ -16,6 +19,8 @@ from typing import List, Union, Optional, Dict, Any, Callable
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
+_HOOK_NAME = "on_worker_process_data"
 
 @dataclass
 class OnWorkerProcessData:
@@ -32,10 +37,10 @@ class OnWorkerProcessData:
     """
 
     worker_log: List[str]
-    library_id: str
+    library_id: int
 
     # Can be False to stop command execution
-    exec_command: Union[bool, List[str]]
+    exec_command: List[str]
 
     # TODO(Peter): What are the parameter types, what are the return types?
     command_progress_parser: Optional[Callable[[Any], None]]
@@ -59,9 +64,9 @@ class OnWorkerProcessData:
 
 def _map(d: Dict[str, Any]) -> OnWorkerProcessData:
     return OnWorkerProcessData(
+        library_id=d.get("library_id", 0),
         worker_log=d.get("worker_log", []),
-        library_id=d.get("library_id", ""),
-        exec_command=d.get("exec_command", False),
+        exec_command=d.get("exec_command", []),
         command_progress_parser=d.get("command_progress_parser", None),
         file_in=d.get("file_in", ""),
         file_out=d.get("file_out", ""),
@@ -70,8 +75,13 @@ def _map(d: Dict[str, Any]) -> OnWorkerProcessData:
     )
 
 
-
-
 def on_worker_process_data_make_from_dict(d: Dict[str, Any]) -> OnWorkerProcessData:
     data = _map(d)
+    settings = Settings(library_id=data.library_id)
+    try:
+        pass
+    except Exception as e:
+        print(LIBRARY_ID, f"Error during {_HOOK_NAME}", e)
+        print_exc()
+        data.exec_command = []
     return data

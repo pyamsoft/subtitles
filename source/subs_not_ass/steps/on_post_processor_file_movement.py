@@ -2,6 +2,8 @@
 from dataclasses import dataclass
 from typing import Dict, Any
 
+from source.subs_not_ass.settings import Settings
+
 
 #  Copyright 2024 pyamsoft
 #
@@ -23,6 +25,7 @@ from typing import Dict, Any
 class OnPostProcessorFileMovement:
     """
     The 'data' object argument includes:
+        library_id              - Number, the library that the current task is associated with.
         source_data             - Dictionary containing data pertaining to the original source file.
         remove_source_file      - Boolean, should Unmanic remove the original source file after all copy operations are complete.
         copy_file               - Boolean, should Unmanic run a copy operation with the returned data variables.

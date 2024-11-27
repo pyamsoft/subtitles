@@ -1,30 +1,10 @@
 #!/usr/bin/env python3
 
-from dataclasses import dataclass
 from typing import Dict, Any
 
-from unmanic.libs.unplugins.settings import PluginSettings
-
-from source.subs_not_ass.constants import LIBRARY_ID
 from source.subs_not_ass.steps.on_library_management_file_test import on_library_management_file_test_make_from_dict
 from source.subs_not_ass.steps.on_post_processor_file_movement import on_post_processor_file_movement_make_from_dict
 from source.subs_not_ass.steps.on_worker_process_data import on_worker_process_data_make_from_dict
-
-
-@dataclass
-class _Settings:
-    TEMPORARY_DOWNLOAD_DIRECTORY = "Temporary Download Directory"
-    OPENSUBTITLES_API_KEY = "OpenSubtitles API Key"
-
-
-class Settings(PluginSettings):
-    settings = {
-        # The directory that we will use for downloading temporary files
-        # This can include anything "in progress" as well as binary tools like "alass"
-        _Settings.TEMPORARY_DOWNLOAD_DIRECTORY: "",
-        # The OpenSubtitles API Key
-        _Settings.OPENSUBTITLES_API_KEY: "",
-    }
 
 
 def on_library_management_file_test(
@@ -43,8 +23,9 @@ def on_library_management_file_test(
     :return:
     """
     dc = on_library_management_file_test_make_from_dict(data)
-    print(LIBRARY_ID, data, dc)
-    return dc.as_dict()
+    new_data = dc.as_dict()
+    data.update(new_data)
+    return new_data
 
 
 def on_worker_process(data: Dict[str, Any]) -> Dict[str, Any]:
@@ -65,8 +46,9 @@ def on_worker_process(data: Dict[str, Any]) -> Dict[str, Any]:
     :return:
     """
     dc = on_worker_process_data_make_from_dict(data)
-    print(LIBRARY_ID, data, dc)
-    return dc.as_dict()
+    new_data = dc.as_dict()
+    data.update(new_data)
+    return new_data
 
 
 def on_postprocessor_file_movement(data: Dict[str, Any]) -> Dict[str, Any]:
@@ -84,5 +66,6 @@ def on_postprocessor_file_movement(data: Dict[str, Any]) -> Dict[str, Any]:
     :return:
     """
     dc = on_post_processor_file_movement_make_from_dict(data)
-    print(LIBRARY_ID, data, dc)
-    return dc.as_dict()
+    new_data = dc.as_dict()
+    data.update(new_data)
+    return new_data
